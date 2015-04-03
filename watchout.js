@@ -14,7 +14,8 @@ Watchout.prototype.init = function() {
   this.enemyCount = 10;
   this.svg = d3.select('body').append('svg')
     .attr('width', this.width)
-    .attr('height', this.height);
+    .attr('height', this.height)
+    .attr('fill', 'black');
   this.img = this.svg.selectAll('image')
             .data(this.randomXy(this.enemyCount,this.height, this.width))
             .enter()
@@ -24,6 +25,19 @@ Watchout.prototype.init = function() {
             .attr('x', function(d){ return d[0];})
             .attr('y', function(d){ return d[1];})
             .attr('xlink:href', 'asteroid.png');
+
+  var drag = d3.behavior.drag()
+    .on('drag', function(){
+      this.setAttribute('cx', parseFloat(this.getAttribute('cx')) + d3.event.dx);
+      this.setAttribute('cy', parseFloat(this.getAttribute('cy')) + d3.event.dy);
+    });
+  this.svg.append('circle')
+    .attr('cy', this.height/2)
+    .attr('cx', this.width/2)
+    .attr('r', 25)
+    .attr('fill', 'red')
+    .call(drag);
+
 
 };
 
