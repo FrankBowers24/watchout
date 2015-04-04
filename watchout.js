@@ -29,7 +29,8 @@ Watchout.prototype.init = function() {
             .attr('height', this.imgHeight)
             .attr('x', function(d){ return d[0];})
             .attr('y', function(d){ return d[1];})
-            .attr('xlink:href', 'asteroid.png');
+            .attr('xlink:href', 'shuriken2.png')
+            .attr("class", "enemy");
 
   var drag = d3.behavior.drag()
     .on('drag', function(){
