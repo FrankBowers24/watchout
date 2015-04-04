@@ -23,8 +23,15 @@ d3.json("rent.json",function(rent){
 
 var initChart = function(zipCode){
   //debugger
+  var labels = ['studio', 'one bedroom','two bedrooms','three bedrooms'];
+
+  d3.select('#chartLabels').selectAll('div')
+    .data(labels)
+    .enter().append('div')
+    .text(function(d) { return d;});
+
   zipCode = zipCode || '94040';
-  window.Chart = d3.select(".chart")
+  window.Chart = d3.select(".chartBars")
       .selectAll("div")
       .data(window.rent[zipCode].slice(1,-1))
       .enter().append("div")
@@ -37,7 +44,7 @@ var updateChart = function(zipCode, rent){
   //debugger
   console.dir(window.rent[zipCode]);
   zipCode = zipCode || '94040';
-  d3.select(".chart")
+  d3.select(".chartBars")
       .selectAll("div")
       .data(window.rent[zipCode].slice(1,-1))
       .transition()
