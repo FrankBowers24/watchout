@@ -49,11 +49,18 @@ var updateChart = function(zipCode, rent){
       .data(window.rent[zipCode].slice(1,-1))
       .transition()
       .style("width", function(d) {
-        return d/20 + "px"; })
-      .text(function(d) { return d; })
-      .style("opacity", function(d){
-        return d > 0 ? 1 : 0;
-      });
+        return d > 0 ? (d/20 + "px") : "90px"; })
+      .text(function(d){
+        return d > 0 ? d : "No data";
+      })
+      .attr("class", function(d){
+        if (d === null){
+          return 'noData';
+        }else{
+          return 'chartBars';
+        }
+        });
+  d3.select("#zipCodeLabel").text(zipCode);
 };
 
 
@@ -61,9 +68,9 @@ var updateChart = function(zipCode, rent){
 jQuery(document).ready(function(){
   $("#zipCodeMenu").on("click", function(event) {
     //var zip = event.target.innerHTML.to;
-    console.dir(event.target.innerHTML);
+    //console.dir(event.target.innerHTML);
     updateChart(event.target.innerHTML, window.rent);
-    console.log("changed ************************ " );
+    //console.log("changed ************************ " );
    });
   });
 
